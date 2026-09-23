@@ -682,31 +682,35 @@
           </div>
         </div>
 
-        <!-- Contact Form -->
-        <form class="contact-form" id="contact-form">
+        <!-- Contact Form configured with FormSubmit for real-time email notifications -->
+        <form class="contact-form" id="contact-form" action="https://formsubmit.co/cyberahmad1657@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="🚀 New Portfolio Contact Message from Website!">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+
           <div class="form-group">
             <label for="contact-name">Your Name</label>
-            <input type="text" id="contact-name" class="form-control" placeholder="e.g. Alex Mercer" required>
+            <input type="text" id="contact-name" name="name" class="form-control" placeholder="e.g. Alex Mercer" required>
           </div>
 
           <div class="form-group">
             <label for="contact-email">Email Address</label>
-            <input type="email" id="contact-email" class="form-control" placeholder="e.g. alex@example.com" required>
+            <input type="email" id="contact-email" name="email" class="form-control" placeholder="e.g. alex@example.com" required>
           </div>
 
           <div class="form-group">
             <label for="contact-subject">Subject</label>
-            <input type="text" id="contact-subject" class="form-control"
+            <input type="text" id="contact-subject" name="subject" class="form-control"
               placeholder="Project Inquiry / Research Collaboration" required>
           </div>
 
           <div class="form-group">
             <label for="contact-message">Message</label>
-            <textarea id="contact-message" class="form-control" placeholder="Write your message here..."
+            <textarea id="contact-message" name="message" class="form-control" placeholder="Write your message here..."
               required></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary" style="width: 100%;">
+          <button type="submit" class="btn btn-primary" id="contact-submit-btn" style="width: 100%;">
             <i class="fa-solid fa-paper-plane"></i> Send Message
           </button>
         </form>

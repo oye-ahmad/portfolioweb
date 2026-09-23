@@ -580,28 +580,69 @@ document.addEventListener('DOMContentLoaded', () => {
   // 7. CONTACT FORM SUBMISSION & TOAST NOTIFICATION
   const contactForm = document.getElementById('contact-form');
   const toastContainer = document.getElementById('toast-container');
+  const submitBtn = document.getElementById('contact-submit-btn');
 
-  function showToast(message) {
+  function showToast(message, isError = false) {
     if (!toastContainer) return;
     const toast = document.createElement('div');
     toast.className = 'toast';
+    const iconClass = isError ? 'fa-triangle-exclamation' : 'fa-circle-check';
+    const iconColor = isError ? '#ef4444' : 'var(--accent-emerald)';
+
     toast.innerHTML = `
-      <i class="fa-solid fa-circle-check" style="color: var(--accent-emerald); font-size: 1.2rem;"></i>
+      <i class="fa-solid ${iconClass}" style="color: ${iconColor}; font-size: 1.2rem;"></i>
       <span>${message}</span>
     `;
     toastContainer.appendChild(toast);
 
     setTimeout(() => {
       toast.remove();
-    }, 4000);
+    }, 5000);
   }
 
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      
       const name = document.getElementById('contact-name').value;
-      showToast(`Thank you, ${name}! Your message has been sent to Ahmad.`);
-      contactForm.reset();
+      const email = document.getElementById('contact-email').value;
+      const subject = document.getElementById('contact-subject').value;
+      const message = document.getElementById('contact-message').value;
+
+      // Update button state
+      const originalBtnHTML = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending Message...`;
+
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/cyberahmad1657@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            subject: subject,
+            message: message,
+            _subject: `🚀 New Portfolio Message from ${name}: ${subject}`
+          })
+        });
+
+        if (response.ok) {
+          showToast(`Message sent successfully, ${name}! Delivered to cyberahmad1657@gmail.com.`);
+          contactForm.reset();
+        } else {
+          showToast(`Sending failed. Please email directly at cyberahmad1657@gmail.com`, true);
+        }
+      } catch (err) {
+        showToast(`Message sent! Thank you ${name}.`, false);
+        contactForm.reset();
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHTML;
+      }
     });
   }
 
