@@ -1,0 +1,20 @@
+{
+  "name": "ahmad-portfolio",
+  "version": "1.0.0",
+  "description": "Futuristic Portfolio Website for Ahmad (oye-ahmad) - Autonomous UAVs, AI & Embedded Systems",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8080"
+  },
+  "keywords": [
+    "portfolio",
+    "uav",
+    "ros2",
+    "ai",
+    "robotics",
+    "embedded",
+    "web"
+  ],
+  "author": "Ahmad",
+  "license": "MIT"
+}
